@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.example</groupId>
-  <artifactId>Project_MembershipBoard_221004_day45</artifactId>
+  <artifactId>Shop_Project_221115</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>Project_MembershipBoard_221004_day45 Maven Webapp</name>
+  <name>Shop_Project_221115 Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <!-- 여기서부터 복사 시작 -->
 
