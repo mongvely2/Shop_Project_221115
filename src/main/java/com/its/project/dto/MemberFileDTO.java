@@ -13,5 +13,5 @@ public class MemberFileDTO {
     private MultipartFile memberFile;
     private String originalFileName;
     private String storedFileName;
-    private Long member_id;
+    private Long memberId;
 }

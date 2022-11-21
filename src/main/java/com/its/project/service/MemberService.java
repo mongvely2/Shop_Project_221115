@@ -27,7 +27,7 @@ public class MemberService {
             memberDTO.setFileAttached("Y");
 //          MemberDTO saveResult =     exception 발생시 아래 좌변에 추가해볼것
             MemberDTO saveResult = memberRepository.save(memberDTO);
-            memberFileDTO.setMember_id(memberDTO.getId());
+            memberFileDTO.setMemberId(memberDTO.getId());
             memberRepository.saveFileName(memberFileDTO);
 
         } else {

@@ -16,7 +16,9 @@ public class MemberDTO {
     private String memberName;
     private String memberMobile;
     private int memberRole;
-    private Timestamp create_date;
-    private String fileAttached;
+    private Timestamp createDate;
     private int login_count;
+    private String fileAttached;
+    private String delYn;
+    private String memberStatus;
 }

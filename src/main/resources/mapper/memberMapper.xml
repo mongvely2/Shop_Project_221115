@@ -5,24 +5,24 @@
 
 <mapper namespace="Member">
     <insert id="save" parameterType="member" useGeneratedKeys="true" keyProperty="id">
-        insert into member_table(memberId, memberPassword, memberName, memberMobile, fileAttached)
+        insert into member_table(member_id, member_password, member_name, member_mobile, file_attached_yn)
                 values(#{memberId}, #{memberPassword}, #{memberName}, #{memberMobile}, #{fileAttached})
     </insert>
     
     <insert id="saveFileName" parameterType="memberFile">
-        insert into member_file(originalFileName, storedFileName, member_id)
-                values (#{originalFileName}, #{storedFileName}, #{member_id})
+        insert into member_file(originalFileName, storedFileName, memberId)
+                values (#{originalFileName}, #{storedFileName}, #{memberId})
     </insert>
 
     <select id="duplicateCheck" parameterType="String" resultType="String">
-        select memberId
+        select member_id
         from member_table
-        where memberId=#{inputId}
+        where member_id=#{inputId}
     </select>
 
     <select id="login" parameterType="member" resultType="member">
         select * from member_table
-                 where memberId=#{memberId} and memberPassword=#{memberPassword}
+                 where member_id=#{memberId} and member_password=#{memberPassword}
     </select>
 
 </mapper>
