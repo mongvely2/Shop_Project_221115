@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 public class CartDTO {
     private Long id;
-    private ProductDTO product;
-    private MemberDTO member;
+    private ProductDTO cartProduct;
+    private MemberDTO cartMember;
     private int cartCount;
 }

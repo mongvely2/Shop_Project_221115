@@ -6,6 +6,7 @@
         <typeAlias type="com.its.project.dto.MemberDTO" alias="member" />
         <typeAlias type="com.its.project.dto.MemberFileDTO" alias="memberFile" />
         <typeAlias type="com.its.project.dto.ProductDTO" alias="product"/>
+        <typeAlias type="com.its.project.dto.ProductFileDTO" alias="productFile"/>
         <typeAlias type="com.its.project.dto.OrderDTO" alias="order"/>
         <typeAlias type="com.its.project.dto.ItemDTO" alias="item"/>
         <typeAlias type="com.its.project.dto.CategoryDTO" alias="category"/>

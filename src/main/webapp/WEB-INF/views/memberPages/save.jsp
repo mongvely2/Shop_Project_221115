@@ -13,37 +13,53 @@
     <script src="/resources/js/jquery.js"></script>
 </head>
 <body>
-<div>
+
+<div class="container">
+<%--    <form action="/member/save" name="saveForm" method="post" enctype="multipart/form-data">--%>
+<%--        id: <input type="text" name="memberId" id="memberId" onblur="duplicateCheck()" placeholder="아이디입력" class="form-control">--%>
+<%--        <div><span id="duplicateEmail"></span></div>--%>
+<%--        pw: <input type="text" name="memberPassword" id="memberPassword" onblur="passCheck()" placeholder="비밀번호입력" class="form-control">--%>
+<%--        <div><span id="expPass"></span></div>--%>
+<%--        check pw: <input type="text" id="checkPassword" onblur="doublePassCheck()" placeholder="비밀번호재확인입력" class="form-control">--%>
+<%--        <div><span id="doublePass"></span></div>--%>
+<%--        name: <input type="text" name="memberName" id="memberName" placeholder="이름입력" class="form-control">--%>
+<%--        mobile: <input type="text" name="memberMobile" id="memberMobile" onblur="mobileCheck()" placeholder="연락처입력" class="form-control">--%>
+<%--        <div><span id="expMobile"></span></div>--%>
+<%--        file: <input type="file" name="memberFile" class="form-control">--%>
+<%--        <div>--%>
+<%--            <input type="button" onclick="memberSave()" value="가입하기" class="btn btn-primary">--%>
+<%--        </div>--%>
+<%--    </form>--%>
     <form action="/member/save" name="saveForm" method="post" enctype="multipart/form-data">
-        id: <input type="text" name="memberId" id="memberId" onblur="duplicateCheck()" placeholder="아이디입력">
+        id: <input type="text" name="userId" id="userId" onblur="duplicateCheck()" placeholder="아이디입력" class="form-control">
         <div><span id="duplicateEmail"></span></div>
-        pw: <input type="text" name="memberPassword" id="memberPassword" onblur="passCheck()" placeholder="비밀번호입력">
+        pw: <input type="text" name="memberPassword" id="memberPassword" onblur="passCheck()" placeholder="비밀번호입력" class="form-control">
         <div><span id="expPass"></span></div>
-        check pw: <input type="text" id="checkPassword" onblur="doublePassCheck()" placeholder="비밀번호재확인입력">
+        check pw: <input type="text" id="checkPassword" onblur="doublePassCheck()" placeholder="비밀번호재확인입력" class="form-control">
         <div><span id="doublePass"></span></div>
-        name: <input type="text" name="memberName" id="memberName" placeholder="이름입력">
-        mobile: <input type="text" name="memberMobile" id="memberMobile" onblur="mobileCheck()" placeholder="연락처입력">
+        name: <input type="text" name="memberName" id="memberName" placeholder="이름입력" class="form-control">
+        mobile: <input type="text" name="memberMobile" id="memberMobile" onblur="mobileCheck()" placeholder="연락처입력" class="form-control">
         <div><span id="expMobile"></span></div>
-        file: <input type="file" name="memberFile">
+        fileAttached: <input type="file" name="memberFile" class="form-control">
+        <div>
+            <input type="button" value="가입하기" onclick="memberSave()" class="btn btn-primary">
+        </div>
     </form>
-    <div>
-        <input type="button" onclick="save()" value="가입하기">
-    </div>
 </div>
 </body>
 <script>
 
     const memberPassword = document.getElementById("memberPassword").value;
     const checkPassword = document.getElementById("checkPassword").value;
-    const memberName = document.getElementById("memberName").value;
-    const memberMobile = document.getElementById("memberMobile").value;
+    // const memberName = document.getElementById("memberName").value;
+    // const memberMobile = document.getElementById("memberMobile").value;
     const passResult = memberPassword == checkPassword;
     const passExp = /^(?=.*[a-z])(?=.*[\d])[a-z\d]{5,10}$/;
     const mobileExp = /^\d{3}-\d{4}-\d{4}$/;
 
     const duplicateCheck = () => {
         const duplicateEmail = document.getElementById("duplicateEmail");
-        const inputId = document.getElementById("memberId").value;
+        const inputId = document.getElementById("userId").value;
 
         $.ajax({
             type: "post",
@@ -64,7 +80,7 @@
             error: function () {
                 console.log("실패")
 
-        }
+            }
         });
 
     }
@@ -105,28 +121,31 @@
         }
     }
 
-    const save = () => {
-        if (document.saveForm.memberId.value == "") {
+    const memberSave = () => {
+        console.log("함수호출")
+        if (document.saveForm.userId.value == "") {
             alert("아이디를 입력하세요")
-            return ;
+            return;
         }
         if (document.saveForm.memberPassword.value == "") {
             alert("비밀번호를 입력하세요")
-            return ;
+            return;
         }
-        if (!passResult && checkPassword=="") {
+        if (!passResult && checkPassword == "") {
             alert("재확인 비밀번호를 확인후 입력하세요")
-            return ;
+            return;
         }
         if (document.saveForm.memberName.value == "") {
             alert("이름을 입력하세요")
-            return ;
+            return;
         }
         if (document.saveForm.memberMobile.value == "") {
             alert("연락처를 입력하세요")
         } else {
+            console.log(document.getElementById("userId").value)
             document.saveForm.submit();
         }
+        // document.memberSaveForm.submit();
     }
 </script>
 </html>

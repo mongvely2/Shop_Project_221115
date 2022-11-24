@@ -18,7 +18,9 @@ public class ProductDTO {
     private String productDelete;
     private String productSale;
     private Timestamp productCreate;
-    private String productAttached;
+    private String productFileAttached;
+    private String productProfileAttached;
     private CategoryDTO category;
+    private MemberDTO member;
 
 }

@@ -4,9 +4,26 @@
 
 
 <mapper namespace="Member">
+
+    <resultMap id="mapMember" type="member">
+        <result column="id" property="id" />
+        <result column="member_id" property="userId" />
+        <result column="member_password" property="memberPassword" />
+        <result column="member_name" property="memberName" />
+        <result column="member_mobile" property="memberMobile" />
+        <result column="member_role" property="memberRole" />
+        <result column="create_date" property="createDate" />
+        <result column="login_count" property="login_count" />
+        <result column="del_yn" property="fileAttached" />
+        <result column="member_status" property="delYn" />
+        <result column="file_attached_yn" property="memberStatus" />
+    </resultMap>
+
+<!--    resultMap  -->
+
     <insert id="save" parameterType="member" useGeneratedKeys="true" keyProperty="id">
         insert into member_table(member_id, member_password, member_name, member_mobile, file_attached_yn)
-                values(#{memberId}, #{memberPassword}, #{memberName}, #{memberMobile}, #{fileAttached})
+                values(#{userId}, #{memberPassword}, #{memberName}, #{memberMobile}, #{fileAttached})
     </insert>
     
     <insert id="saveFileName" parameterType="memberFile">
@@ -20,9 +37,9 @@
         where member_id=#{inputId}
     </select>
 
-    <select id="login" parameterType="member" resultType="member">
+    <select id="login" parameterType="member" resultMap="mapMember">
         select * from member_table
-                 where member_id=#{memberId} and member_password=#{memberPassword}
+                 where member_id=#{userId} and member_password=#{memberPassword}
     </select>
 
 </mapper>

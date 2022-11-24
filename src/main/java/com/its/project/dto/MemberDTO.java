@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @ToString
 public class MemberDTO {
     private Long id;
-    private String memberId;
+    private String userId;
     private String memberPassword;
     private String memberName;
     private String memberMobile;

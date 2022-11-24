@@ -4,12 +4,118 @@
 
 
 <mapper namespace="Product">
-    <select id="productList" resultType="product">
-        SELECT * FROM product_table
-        WHERE product_sale = 'Y' AND product_stock > 0
+
+    <resultMap id="mapProduct" type="product">
+        <result column="id" property="id"/>
+        <result column="product_name" property="productName"/>
+        <result column="product_contents" property="productContents"/>
+        <result column="product_price" property="productPrice"/>
+        <result column="product_stock" property="productStock"/>
+        <result column="product_delete" property="productDelete"/>
+        <result column="product_sale" property="productSale"/>
+        <result column="product_create" property="productCreate"/>
+        <result column="product_profileattached_yn" property="productProfileAttached"/>
+        <result column="product_fileattached_yn" property="productFileAttached"/>
+        <collection property="category"
+                    resultMap="mapCategory"/>
+        <collection property="member"
+                    resultMap="mapMember"/>
+    </resultMap>
+
+    <resultMap id="mapCategory" type="category">
+        <result column="id" property="id" />
+        <result column="category_name" property="categoryName" />
+    </resultMap>
+
+    <resultMap id="mapMember" type="member">
+        <result column="id" property="id" />
+        <result column="member_id" property="userId" />
+        <result column="member_password" property="memberPassword" />
+        <result column="member_name" property="memberName" />
+        <result column="member_mobile" property="memberMobile" />
+        <result column="member_role" property="memberRole" />
+        <result column="create_date" property="createDate" />
+        <result column="login_count" property="login_count" />
+        <result column="del_yn" property="fileAttached" />
+        <result column="member_status" property="delYn" />
+        <result column="file_attached_yn" property="memberStatus" />
+    </resultMap>
+
+
+<!--  /////////////////////////////////////////////////////////////////////////  -->
+
+
+    <insert id="save" parameterType="product" useGeneratedKeys="true" keyProperty="id">
+        insert into product_table (
+                                   product_name, product_contents, product_price, product_stock,
+                                   product_delete, product_sale, product_create,
+                                   product_profileattached_yn, product_fileattached_yn, category_id, member_id
+        ) values (
+                  #{productName},
+                  #{productContents},
+                  #{productPrice},
+                  #{productStock},
+                  'N',
+                  #{productSale},
+                  SYSDATE(),
+                  #{productFileAttached},
+                  #{productProfileAttached},
+                  #{category.id},
+                  #{member.id}
+                 )
+    </insert>
+
+    <insert id="saveFile" parameterType="productFile">
+        insert into product_file (
+            originalFileName, storedFileName, product_id
+        ) values (
+            #{originalFileName},
+            #{storedFileName},
+            #{product.id}
+        )
+    </insert>
+
+<!--    <select id="productList" resultMap="mapProduct">-->
+<!--        SELECT * FROM product_table-->
+<!--        WHERE product_sale = 'Y' AND product_stock > 0-->
+<!--    </select>-->
+
+    <select id="productList" resultMap="mapProduct">
+        select *
+        from product_table pt, member_table mt, category_table ct
+        where pt.member_id=mt.id
+          and pt.category_id = ct.id
+          and product_sale = 'Y'
+          and product_stock > 0
+
     </select>
 
+    <select id="categoryList" resultMap="mapCategory">
+        SELECT * FROM category_table
+    </select>
+
+<!--    <select id="saveMemberId" parameterType=""-->
+
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
