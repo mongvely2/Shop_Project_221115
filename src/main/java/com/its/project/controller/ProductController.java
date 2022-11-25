@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/product")
@@ -51,17 +52,24 @@ public class ProductController {
                        @RequestParam Long saveCategoryId,
                        @RequestParam MultipartFile profile,
                        @RequestParam MultipartFile file) throws IOException {
-        System.out.println("컨트롤러 saveMemberId = " + saveMemberId);
         productService.save(productDTO,productFileDTO, saveMemberId, saveCategoryId, profile, file);
 //        productService.save(productDTO,productFileDTO,categoryDTO, profile, file);
         return "index";
 //        return "redirect:/product/productList";
     }
 
-//    @GetMapping("/findByid")
-//    public String findById() {
-//
-//    }
+    @GetMapping("/findById")
+    public String findById(@RequestParam Long id, Model model) {
+        productService.updateHits(id);
+        System.out.println("controller id = " + id + ", model = " + model);
+        Map findById = productService.findById(id);
+        System.out.println("findById = " + findById);
+        model.addAttribute("product", findById.get("findProduct"));
+        model.addAttribute("productProfile", findById.get("findProfile"));
+        model.addAttribute("productFile", findById.get("findFile"));
+        return "productPages/productDetail";
+
+    }
 
 
 

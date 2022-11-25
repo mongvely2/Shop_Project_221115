@@ -18,6 +18,7 @@
     <table class="table table-striped table-hover text-center">
         <tr>
             <th>번호</th>
+            <th>조회수</th>
             <th>작성자</th>
             <th>카테고리</th>
             <th>상품명</th>
@@ -30,6 +31,7 @@
         <c:forEach items="${productList}" var="product">
             <tr>
                 <td>${product.id}</td>
+                <td>${product.productHits}</td>
                 <td>${product.member.userId}</td>
                 <td>${product.category.categoryName}</td>
                 <td>

@@ -15,4 +15,5 @@ public class ProductFileDTO {
     private String originalFileName;
     private String storedFileName;
     private ProductDTO product;
+    private String fileType;
 }

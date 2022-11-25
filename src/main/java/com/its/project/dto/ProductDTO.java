@@ -18,8 +18,9 @@ public class ProductDTO {
     private String productDelete;
     private String productSale;
     private Timestamp productCreate;
-    private String productFileAttached;
     private String productProfileAttached;
+    private String productFileAttached;
+    private int productHits;
     private CategoryDTO category;
     private MemberDTO member;
 

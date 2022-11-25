@@ -32,6 +32,23 @@ public class ProductRepository {
         sql.insert("Product.saveFile", productFileDTO);
     }
 
+    public ProductDTO findById(Long id) {
+        return sql.selectOne("findById", id);
+    }
+
+    public void updateHits(Long id) {
+        sql.update("updateHits", id);
+    }
+
+    public ProductFileDTO findProductFile(Long id) {
+        return sql.selectOne("findProductFile", id);
+    }
+
+    public ProductFileDTO findProductProfile(Long id) {
+        return sql.selectOne("findProductProfile", id);
+    }
+
+
 //    public MemberDTO saveMemberId(MemberDTO loginId) {
 //        return sql.selectOne("saveMemberId", loginId);
 //    }

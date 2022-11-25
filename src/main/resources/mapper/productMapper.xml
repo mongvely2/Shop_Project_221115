@@ -16,6 +16,7 @@
         <result column="product_create" property="productCreate"/>
         <result column="product_profileattached_yn" property="productProfileAttached"/>
         <result column="product_fileattached_yn" property="productFileAttached"/>
+        <result column="product_hits" property="productHits"/>
         <collection property="category"
                     resultMap="mapCategory"/>
         <collection property="member"
@@ -39,6 +40,15 @@
         <result column="del_yn" property="fileAttached" />
         <result column="member_status" property="delYn" />
         <result column="file_attached_yn" property="memberStatus" />
+    </resultMap>
+
+    <resultMap id="mapProductFile" type="productFile">
+        <result column="id" property="id" />
+        <result column="originalFileName" property="originalFileName" />
+        <result column="storedFileName" property="storedFileName" />
+        <result column="file_type" property="fileType" />
+        <collection property="product"
+                    resultMap="mapProduct"/>
     </resultMap>
 
 
@@ -67,11 +77,12 @@
 
     <insert id="saveFile" parameterType="productFile">
         insert into product_file (
-            originalFileName, storedFileName, product_id
+            originalFileName, storedFileName, product_id, file_type
         ) values (
             #{originalFileName},
             #{storedFileName},
-            #{product.id}
+            #{product.id},
+            #{fileType}
         )
     </insert>
 
@@ -94,7 +105,25 @@
         SELECT * FROM category_table
     </select>
 
-<!--    <select id="saveMemberId" parameterType=""-->
+    <select id="findById" parameterType="Long" resultMap="mapProduct">
+        select * from product_table where id=#{id}
+    </select>
+
+    <update id="updateHits" parameterType="Long">
+        update product_table
+            set product_hits = product_hits+1 where id=#{id}
+    </update>
+
+    <select id="findProductFile" parameterType="Long" resultMap="mapProductFile">
+        select * from product_file
+        where product_id=#{id} and file_type='D'
+    </select>
+
+    <select id="findProductProfile" parameterType="Long" resultMap="mapProductFile">
+        select * from product_file
+        where product_id=#{id} and file_type='T'
+    </select>
+
 
 </mapper>
 
