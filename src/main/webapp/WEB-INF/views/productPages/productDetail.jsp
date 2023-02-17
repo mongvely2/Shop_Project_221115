@@ -10,6 +10,7 @@
 <head>
     <title>productDetail</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.rtl.min.css">
+    <script src="/resources/js/jquery.js"></script>
 </head>
 <body>
 <div class="container">
@@ -21,7 +22,7 @@
         <tr>
             <th>썸네일(미리보기)</th>
             <td>
-                <img src="${pageContext.request.contextPath}/upload/${productProfile}"
+                <img src="${pageContext.request.contextPath}/uploadProfile/${productProfile.storedFileName}"
                      alt="" width="200" height="200">
             </td>
         </tr>
@@ -60,22 +61,16 @@
         <tr>
             <th>상세페이지</th>
             <td>
-                <img src="${pageContext.request.contextPath}/upload/${productFile}"
+                <img src="${pageContext.request.contextPath}/uploadFile/${productFile.storedFileName}"
                      alt="" width="200" height="200">
+
             </td>
         </tr>
         <tr>
             <th>상세설명</th>
             <td>${product.productContents}</td>
         </tr>
-
-
-
-
     </table>
-
-
 </div>
-
 </body>
 </html>

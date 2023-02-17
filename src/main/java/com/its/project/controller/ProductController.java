@@ -61,12 +61,13 @@ public class ProductController {
     @GetMapping("/findById")
     public String findById(@RequestParam Long id, Model model) {
         productService.updateHits(id);
-        System.out.println("controller id = " + id + ", model = " + model);
         Map findById = productService.findById(id);
-        System.out.println("findById = " + findById);
         model.addAttribute("product", findById.get("findProduct"));
         model.addAttribute("productProfile", findById.get("findProfile"));
         model.addAttribute("productFile", findById.get("findFile"));
+
+        System.out.println("controller profile:" + findById.get("findProfile"));
+        System.out.println("controller file:" + findById.get("findFile"));
         return "productPages/productDetail";
 
     }

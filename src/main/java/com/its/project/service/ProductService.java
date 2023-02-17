@@ -56,7 +56,7 @@ public class ProductService {
             }
 //            productDTO.setProductProfileAttached("N");
 //            productDTO.setProductFileAttached("N");
-            if (profile != null) {
+            if (profile != null || file != null) {
                 String originalProfileName = profile.getOriginalFilename(); //2
                 String storedProfileName = System.currentTimeMillis() + "-" + originalProfileName; //3
                 productFileDTO.setOriginalFileName(originalProfileName); //4
@@ -67,12 +67,7 @@ public class ProductService {
 //                Long productId = productFileDTO.getProduct().getId();
 //                productFileDTO.setProduct(productId);
                 productDTO.setProductProfileAttached("Y");
-                ProductDTO result = productRepository.save(productDTO);
-                productFileDTO.setProduct(productDTO);
-                productFileDTO.setFileType("T");
-                productRepository.saveFile(productFileDTO);
-            }
-            if (file != null) {
+
                 String originalFileName = file.getOriginalFilename(); //2
                 String storedFileName = System.currentTimeMillis() + "-" + originalFileName; //3
                 productFileDTO.setOriginalFileName(originalFileName); //4
@@ -81,10 +76,27 @@ public class ProductService {
                 file.transferTo(new File(saveFilePath)); //6
                 productDTO.setProductFileAttached("Y");
                 ProductDTO result = productRepository.save(productDTO);
+
+                productFileDTO.setProduct(productDTO);
+                productFileDTO.setFileType("T");
+                productRepository.saveFile(productFileDTO);
                 productFileDTO.setProduct(productDTO);
                 productFileDTO.setFileType("D");
                 productRepository.saveFile(productFileDTO);
             }
+//            if (file != null) {
+//                String originalFileName = file.getOriginalFilename(); //2
+//                String storedFileName = System.currentTimeMillis() + "-" + originalFileName; //3
+//                productFileDTO.setOriginalFileName(originalFileName); //4
+//                productFileDTO.setStoredFileName(storedFileName); //4
+//                String saveFilePath = "D:\\Shop_productFile\\" + storedFileName; //5
+//                file.transferTo(new File(saveFilePath)); //6
+//                productDTO.setProductFileAttached("Y");
+//                ProductDTO result = productRepository.save(productDTO);
+//                productFileDTO.setProduct(productDTO);
+//                productFileDTO.setFileType("D");
+//                productRepository.saveFile(productFileDTO);
+//            }
         }
 //        업데이트
 //        else {
@@ -101,9 +113,7 @@ public class ProductService {
     }
 
     public Map findById(Long id) {
-        System.out.println("service id = " + id);
         ProductDTO productDTO = productRepository.findById(id);
-        System.out.println("productDTO = " + productDTO);
         Map findById = new LinkedHashMap();
         findById.put("findProduct", productDTO);
         if (productDTO.getProductProfileAttached().equals("Y")) {
